@@ -293,3 +293,9 @@ export const get_complaints = (email) => async dispatch => {
         });
     }
 };
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
+};
