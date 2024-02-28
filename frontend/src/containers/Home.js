@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => (
-    <div className='container'>
+    <main className='pt-30'>
         <div className='jumbotron mb-0 bg-image text-center shadow-1-strong rounded text-white'>
             <div className='container'>
                 <h1 className='display-4 text-center'>Welcome to ResolveNow!</h1>
@@ -20,10 +20,10 @@ const Home = () => (
                     </p>
                 </div>
                 <p>Click the Login button</p>
-                <Link className='btn btn-primary btn-lg' to='/login' role='button'>Login</Link>
+                <Link className='btn btn-primary blue_button btn-sm' to='/login' role='button'>Login</Link>
             </div>
         </div>
-    </div>
+    </main>
 );
 
 export default Home;
