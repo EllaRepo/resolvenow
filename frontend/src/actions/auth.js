@@ -241,3 +241,34 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
         });
     }
 };
+
+export const register_complaint = (formData) => async dispatch => {
+    if (localStorage.getItem('access')) {
+        try {
+            const api = useAxios();
+            api.defaults.headers['Content-Type'] = 'multipart/form-data';
+            const res = await api.post(`${process.env.REACT_APP_API_URL}/auth/postComp/`, formData);
+            Swal.fire({
+                title: "Complaint registered Successfully!",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        } catch (err) {
+            Swal.fire({
+                title: "Error:" + err.message,
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        }
+    } else {
+        dispatch({
+            type: REFRESH_FAIL
+        });
+    }
+}
