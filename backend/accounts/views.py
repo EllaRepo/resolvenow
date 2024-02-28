@@ -23,7 +23,7 @@ class ComplaintView(generics.CreateAPIView):
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def complaints(request, email=None):
-    """Returns complaints
+    """Returns all complaints registered by the user
     """
     if request.method == 'GET':
         cmplts = []
@@ -38,7 +38,7 @@ def complaints(request, email=None):
 @renderer_classes((JSONRenderer,))
 @permission_classes([IsAuthenticated])
 def updateComp(request, id=None):
-    """Returns status
+    """Updates the status of a complaint specified by the id
     """
     if request.method == 'PUT':
         comps = Complaint.objects.all()
@@ -52,4 +52,20 @@ def updateComp(request, id=None):
                         setattr(obj, key, value)
                     obj.save()
                     return Response({}, status=status.HTTP_200_OK)
+    return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@renderer_classes((JSONRenderer,))
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request, email=None):
+    """Updates the user profile
+    """
+    if request.method == 'PUT':
+        user = UserAccount.objects.get_by_natural_key(email)
+        if request.data and request.data != {}:
+            for key, value in request.data.items():
+                setattr(user, key, value)
+        user.save()
+        return Response({}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
