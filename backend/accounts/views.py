@@ -69,3 +69,29 @@ def updateUserProfile(request, email=None):
         user.save()
         return Response({}, status=status.HTTP_200_OK)
     return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getRegions(request, email=None):
+    """Returns region data
+    """
+    if request.method == 'GET':
+        region = []
+        for obj in Region.objects.all():
+            region.append(obj.__dict__['name'])
+        return Response({'response': region}, status=status.HTTP_200_OK)
+    return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getCompTypes(request):
+    """Returns complaints types
+    """
+    if request.method == 'GET':
+        ctypes = []
+        for obj in CompTypes.objects.all():
+            ctypes.append(obj.__dict__['name'])
+        return Response({'response': ctypes}, status=status.HTTP_200_OK)
+    return Response({}, status.HTTP_400_BAD_REQUEST)
