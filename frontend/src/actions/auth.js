@@ -271,4 +271,25 @@ export const register_complaint = (formData) => async dispatch => {
             type: REFRESH_FAIL
         });
     }
-}
+};
+
+export const get_complaints = (email) => async dispatch => {
+    if (localStorage.getItem('access')) {
+        try {
+            const api = useAxios();
+            const { data } = await api.get(`${process.env.REACT_APP_API_URL}/auth/complaints/${email}`);
+            dispatch({
+                type: FETCH_USER_COMPLAINTS_SUCCESS,
+                payload: data
+            })
+        } catch (err) {
+            dispatch({
+                type: FETCH_USER_COMPLAINTS_FAIL
+            })
+        }
+    } else {
+        dispatch({
+            type: REFRESH_FAIL
+        });
+    }
+};
