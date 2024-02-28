@@ -62,3 +62,31 @@ const useAxios = () => {
 
     return axiosInstance;
 };
+
+export const load_user = () => async dispatch => {
+    if (localStorage.getItem('access')) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${localStorage.getItem('access')}`,
+                'Accept': 'application/json'
+            }
+        };
+
+        try {
+            const res = await useAxios().get(`${process.env.REACT_APP_API_URL}/auth/users/me/`);
+            dispatch({
+                type: USER_LOADED_SUCCESS,
+                payload: res.data
+            });
+        } catch (err) {
+            dispatch({
+                type: USER_LOADED_FAIL
+            });
+        }
+    } else {
+        dispatch({
+            type: USER_LOADED_FAIL
+        });
+    }
+}
