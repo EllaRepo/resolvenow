@@ -81,3 +81,9 @@ class Region(models.Model):
     """Defines Region model
     """
     name = models.CharField(max_length=20)
+
+
+class CompTypes(models.Model):
+    """Defines complaint types model
+    """
+    name = models.CharField(max_length=20)
