@@ -75,3 +75,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         if "_state" in new_dict:
             del new_dict["_state"]
         return new_dict
+
+
+class Region(models.Model):
+    """Defines Region model
+    """
+    name = models.CharField(max_length=20)
