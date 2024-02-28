@@ -87,3 +87,28 @@ class CompTypes(models.Model):
     """Defines complaint types model
     """
     name = models.CharField(max_length=20)
+
+
+class Complaint(models.Model):
+    """Defines complaint model
+    """
+    email = models.EmailField()
+    image = models.ImageField(upload_to='images')
+    proof = models.ImageField(upload_to='images')
+    status = models.CharField(max_length=20, default="Pending")
+    compTitle = models.CharField(max_length=128)
+    city = models.CharField(max_length=20)
+    subCity = models.CharField(max_length=20)
+    landmark = models.CharField(max_length=20)
+    desc = models.CharField(max_length=300)
+    region = models.CharField(max_length=20)
+    compType = models.CharField(max_length=20)
+    compSev = models.CharField(max_length=20)
+
+    def to_dict(self):
+        """Returns a dictionary containing all keys/values of the instance
+        """
+        new_dict = self.__dict__.copy()
+        if "_state" in new_dict:
+            del new_dict["_state"]
+        return new_dict
