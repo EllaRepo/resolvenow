@@ -21,11 +21,20 @@ body,
 }
 
 #root {
-    background-color: #212222;
+    background-color: #35374B;
+}
+
+h1,
+p {
+    color: #ffffff;
 }
 
 blue_button {
     background: #8ab4f8;
+}
+
+bg_color2 {
+    background-color: #171717;
 }
 
 footer {
