@@ -92,18 +92,42 @@ class CompTypes(models.Model):
 class Complaint(models.Model):
     """Defines complaint model
     """
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('inprogress', 'In progress'),
+        ('completed', 'Completed'),
+        ('rejected', 'Rejected'),
+    )
+
     email = models.EmailField()
     image = models.ImageField(upload_to='images')
-    proof = models.ImageField(upload_to='images')
-    status = models.CharField(max_length=20, default="Pending")
+    proof = models.ImageField(upload_to='images', null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     compTitle = models.CharField(max_length=128)
     city = models.CharField(max_length=20)
-    subCity = models.CharField(max_length=20)
-    landmark = models.CharField(max_length=20)
+    subCity = models.CharField(max_length=32)
+    landmark = models.CharField(max_length=128)
     desc = models.CharField(max_length=300)
     region = models.CharField(max_length=20)
     compType = models.CharField(max_length=20)
     compSev = models.CharField(max_length=20)
+
+    def to_dict(self):
+        """Returns a dictionary containing all keys/values of the instance
+        """
+        new_dict = self.__dict__.copy()
+        if "_state" in new_dict:
+            del new_dict["_state"]
+        return new_dict
+
+
+class ContactAddress(models.Model):
+    """Defines contact address model
+    """
+    name = models.CharField(max_length=20)
+    contactPerson = models.CharField(max_length=20)
+    email = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20)
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values of the instance

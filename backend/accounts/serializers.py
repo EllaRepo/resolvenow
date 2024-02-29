@@ -25,5 +25,5 @@ class ComplaintSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Complaint
-        fields = ('image', 'email', 'compTitle', 'city', 'subCity',
-                  'landmark', 'desc', 'region', 'compType', 'compSev')
+        fields = ('id', 'image', 'email', 'compTitle', 'city', 'subCity',
+                  'landmark', 'desc', 'region', 'compType', 'compSev', 'status')

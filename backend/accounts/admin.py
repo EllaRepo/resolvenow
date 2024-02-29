@@ -2,7 +2,7 @@
     different data on the database
 """
 from django.contrib import admin
-from accounts.models import UserAccount, Complaint, CompTypes, Region
+from accounts.models import UserAccount, Complaint, CompTypes, Region, ContactAddress
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -28,8 +28,14 @@ class RegionAdmin(admin.ModelAdmin):
     """
     list_display = ['id', 'name']
 
+class ContactAddrAdmin(admin.ModelAdmin):
+    """Class defines display list items of region model
+    """
+    list_display = ['id', 'name']
+
 
 admin.site.register(UserAccount, UserAdmin)
 admin.site.register(Complaint, ComplaintAdmin)
 admin.site.register(CompTypes, CompTypesAdmin)
 admin.site.register(Region, RegionAdmin)
+admin.site.register(ContactAddress, ContactAddrAdmin)
