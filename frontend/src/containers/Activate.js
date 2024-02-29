@@ -20,20 +20,36 @@ const Activate = ({ verify, match }) => {
     }
 
     return (
-        <div className='container mt-4'>
-            <div className='d-flex, flex-column justify-content-center align-items-center'
-                style={{ marginTop: '200px' }}
-            >
-                <h1>Verify your Account</h1>
-                <button
-                    onClick={verify_account}
-                    style={{ marginTop: '50px' }}
-                    type='button'
-                    className='btn btn-primary'
-                >
-                    verify
-                </button>
-            </div>
+        <div>
+            <>
+                <section className='container mt-4'>
+                    <div className='py-4'>
+                        <div className=' d-flex justify-content-center align-items-center'>
+                            <div className=''>
+                                <div className='card bg_color2' style={{ borderRadius: '1rem', backgroundColor: '#78A083' }}>
+                                    <div className='d-flex align-items-center'>
+                                        <div className='card-body p-2 p-lg-4 text-black'>
+                                            <div className='d-flex justify-content-center mb-3 pb-1'>
+                                                <div className='d-flex justify-content-center mb-1 pb-1'>
+                                                    <span className='h2 fw-bold mb-0'>Verify your Account</span>
+                                                </div>
+                                            </div>
+                                            <div className='d-flex justify-content-center mb-2'>
+                                                <button
+                                                    className='btn btn-primary'
+                                                    type='button'
+                                                    onClick={verify_account}>
+                                                    Verify
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </>
         </div>
     )
 };
