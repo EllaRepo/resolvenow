@@ -37,14 +37,12 @@ bg_color2 {
     background-color: #171717;
 }
 
-footer {
+.footer {
     position: fixed;
-    background-color: inherit;
+    justify-content: right;
+    width: 100%;
     bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2px;
-    text-align: right;
+    color: white;
 }
 
 .usr_comps {
@@ -69,8 +67,21 @@ footer {
     padding-bottom: 0px;
     margin: 20px;
 
-    border: 1px solid #39ce52;
+    border: 1px solid #98ABEE;
     border-radius: 4px;
+}
+
+.sidebar {
+    border-right: 1px solid #98ABEE;
+    border-radius: 6px;
+}
+
+.maindisplay {
+    border: 1px solid #836FFF;
+}
+
+.bottomBorder {
+    border-bottom: 1px solid #98ABEE;
 }
 
 .headline {
@@ -79,7 +90,6 @@ footer {
     position: relative;
     align-items: center;
     justify-content: space-between;
-    color: #21ce54;
 }
 
 .comp_status {
@@ -87,10 +97,10 @@ footer {
     justify-content: center;
     align-self: flex-end;
 
-    color: #21ce54;
+    color: #98ABEE;
     font-size: 25px;
     padding: 5px;
-    border: 2px solid #21ce54;
+    border: 2px solid #98ABEE;
     border-radius: 20%;
     float: right;
 
@@ -99,9 +109,14 @@ footer {
 .comp_detail {
     display: block;
     width: 100%;
-
     padding-top: 5px;
     padding-bottom: 0px;
     margin-top: 10px;
     margin-bottom: 0px;
+}
+
+.horizontal_line {
+    width: 75%;
+    margin: 0 auto; /* Centers the line horizontally */
+    border-top: 1px solid ; /* Adjust the color and thickness as needed */
 }
