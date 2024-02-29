@@ -2,6 +2,11 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
+import logo from '../assets/images/rlogo.PNG'
+
+const navigateToAdmin = () => {
+    window.location.replace('http://127.0.0.1:8000/admin/');
+};
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const guestLinks = () => (
@@ -16,7 +21,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 <Link className='nav-link text-white' to='/signup'>Sign Up</Link>
             </li>
             <li className='nav-item'>
-                <Link className='nav-link text-white' to='#' tabindex='-1' >Admin</Link>
+                <Link className='nav-link text-white' onClick={navigateToAdmin} tabindex='-1' >Admin</Link>
             </li>
         </Fragment>
     );
@@ -28,8 +33,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
     );
 
     return (
-        <nav style={{ backgroundColor: '#B5C0D0' }} className='navbar navbar-expand-lg navbar-light'>
-            <Link className='navbar-brand text-white' to='/'>CRM SYS</Link>
+        <nav className='navbar navbar-expand-lg bottomBorder'>
+            <Link className='navbar-brand text-white' to={isAuthenticated ? '#' : '/'}>
+                <img style={{ width: "120px", padding: "6px" }} src={logo} alt="" />
+            </Link>
+
             <button
                 className='navbar-toggler'
                 type='button'
