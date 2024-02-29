@@ -17,6 +17,8 @@ import {
     PASSWORD_RESET_CONFIRM_SUCCESS,
     FETCH_USER_COMPLAINTS_SUCCESS,
     FETCH_USER_COMPLAINTS_FAIL,
+    CONTACT_ADDRESS_LOADED_SUCCESS,
+    CONTACT_ADDRESS_LOADED_FAIL,
     LOGOUT
 } from '../actions/types';
 
@@ -25,7 +27,8 @@ const initialState = {
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
     user: null,
-    data: null
+    data: null,
+    addr: null
 };
 
 export default function (state = initialState, action) {
@@ -61,6 +64,11 @@ export default function (state = initialState, action) {
                 ...state,
                 data: payload
             }
+        case CONTACT_ADDRESS_LOADED_SUCCESS:
+            return {
+                ...state,
+                addr: payload
+            }
         case AUTHENTICATED_FAIL:
             return {
                 ...state,
@@ -91,6 +99,7 @@ export default function (state = initialState, action) {
         case ACTIVATION_FAIL:
         case REFRESH_FAIL:
         case FETCH_USER_COMPLAINTS_FAIL:
+        case CONTACT_ADDRESS_LOADED_FAIL:
             return {
                 ...state
             }

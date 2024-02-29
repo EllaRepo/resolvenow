@@ -1,8 +1,6 @@
 import axios from 'axios';
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -22,8 +20,12 @@ import {
     PASSWORD_RESET_CONFIRM_SUCCESS,
     FETCH_USER_COMPLAINTS_SUCCESS,
     FETCH_USER_COMPLAINTS_FAIL,
+    CONTACT_ADDRESS_LOADED_SUCCESS,
+    CONTACT_ADDRESS_LOADED_FAIL,
     LOGOUT
 } from './types';
+
+const Swal = require('sweetalert2');
 
 const useAxios = () => {
     const axiosInstance = axios.create({
@@ -108,10 +110,29 @@ export const login = (email, password) => async dispatch => {
             payload: res.data
         });
         dispatch(load_user());
+        dispatch(load_contact_add());
+        Swal.fire({
+            title: 'Logged in',
+            icon: 'success',
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL
         });
+        Swal.fire({
+            title: 'Error' + err.message,
+            icon: 'error',
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
     }
 };
 
@@ -165,8 +186,17 @@ export const signup = (first_name, last_name, phone, email, password, re_passwor
             type: SIGNUP_SUCCESS,
             payload: res.data
         });
+
     } catch (err) {
-        console.log(err);
+        Swal.fire({
+            title: 'Error:' + err.message,
+            icon: 'error',
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
         dispatch({
             type: SIGNUP_FAIL
         })
@@ -247,21 +277,23 @@ export const register_complaint = (formData) => async dispatch => {
         try {
             const api = useAxios();
             api.defaults.headers['Content-Type'] = 'multipart/form-data';
-            const res = await api.post(`${process.env.REACT_APP_API_URL}/auth/postComp/`, formData);
+            await api.post(`${process.env.REACT_APP_API_URL}/auth/postComp/`, formData);
             Swal.fire({
-                title: "Complaint registered Successfully!",
+                title: "Registration Successful, Login Now",
                 icon: "success",
                 toast: true,
                 timer: 6000,
+                position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
-            });
+            })
         } catch (err) {
             Swal.fire({
                 title: "Error:" + err.message,
                 icon: "error",
                 toast: true,
                 timer: 6000,
+                position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             });
@@ -277,7 +309,12 @@ export const get_complaints = (email) => async dispatch => {
     if (localStorage.getItem('access')) {
         try {
             const api = useAxios();
-            const { data } = await api.get(`${process.env.REACT_APP_API_URL}/auth/complaints/${email}`);
+            const queryParams = {
+                email: email
+            };
+            const { data } = await api.get(`${process.env.REACT_APP_API_URL}/auth/complaints/}`, {
+                params: queryParams
+            });
             dispatch({
                 type: FETCH_USER_COMPLAINTS_SUCCESS,
                 payload: data
@@ -290,6 +327,27 @@ export const get_complaints = (email) => async dispatch => {
     } else {
         dispatch({
             type: REFRESH_FAIL
+        });
+    }
+};
+
+export const load_contact_add = () => async dispatch => {
+    if (localStorage.getItem('access')) {
+        try {
+            const res = await useAxios().get(`${process.env.REACT_APP_API_URL}/auth/contact/`);
+            dispatch({
+                type: CONTACT_ADDRESS_LOADED_SUCCESS,
+                payload: res.data.data
+            });
+            console.log(res.data.data)
+        } catch (err) {
+            dispatch({
+                type: CONTACT_ADDRESS_LOADED_FAIL
+            });
+        }
+    } else {
+        dispatch({
+            type: CONTACT_ADDRESS_LOADED_FAIL
         });
     }
 };
