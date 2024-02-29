@@ -33,7 +33,7 @@ const Login = ({ login, isAuthenticated, user }) => {
                                 <div className="card bg_color2" style={{ borderRadius: "1rem", backgroundColor: "#78A083" }}>
                                     <div className="d-flex align-items-center">
                                         <div className="card-body p-2 p-lg-4 text-black">
-                                            <form onSubmit={onSubmit}>
+                                            <form onSubmit={e => onSubmit(e)}>
                                                 <div className="d-flex justify-content-center mb-3 pb-1">
                                                     <div className="d-flex justify-content-center mb-1 pb-1">
                                                         <span className="h2 fw-bold mb-0">Login 👋</span>
